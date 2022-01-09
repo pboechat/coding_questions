@@ -10,11 +10,14 @@ string_rotation: strings/string_rotation.question
 
 sum_lists: linked_lists/sum_lists.question
 
+palindrome: linked_lists/palindrome
+
 strings: \
 	integer_string_conversions \
 	string_rotation
 
 linked_lists: \
-	sum_lists
+	sum_lists \
+	palindrome
 
 all: strings
