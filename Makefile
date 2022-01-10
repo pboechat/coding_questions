@@ -10,7 +10,9 @@ string_rotation: strings/string_rotation.question
 
 sum_lists: linked_lists/sum_lists.question
 
-palindrome: linked_lists/palindrome
+palindrome: linked_lists/palindrome.question
+
+intersection: linked_lists/intersection.question
 
 strings: \
 	integer_string_conversions \
@@ -18,6 +20,7 @@ strings: \
 
 linked_lists: \
 	sum_lists \
-	palindrome
+	palindrome \
+	intersection
 
 all: strings
