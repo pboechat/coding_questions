@@ -1,4 +1,4 @@
-CXXFLAGS := -g -I. -std=c++20
+CXXFLAGS := -g -I. -std=c++14
 LDFLAGS := -lstdc++
 
 %.question:
@@ -23,4 +23,6 @@ linked_lists: \
 	palindrome \
 	intersection
 
-all: strings
+all: \
+	strings \
+	linked_lists
