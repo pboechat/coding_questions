@@ -1,4 +1,4 @@
-CXXFLAGS := -g -I. -std=c++14
+CXXFLAGS := -g -O0 -I. -std=c++14
 LDFLAGS := -lstdc++
 
 %.question:

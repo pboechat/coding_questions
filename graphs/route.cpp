@@ -13,7 +13,7 @@ struct Node
 {
     const char* name;
     std::vector<Node*> adjacencies;
-    bool visited;
+    unsigned char visitors: 2;
 
 };
 
@@ -37,7 +37,7 @@ void initializeGraph(Graph& graph
     , const std::initializer_list<NodeDecl>& nodeDeclrs) {
     graph.nodes.reserve(nodeDeclrs.size());    
     for (auto& nodeDeclr : nodeDeclrs) {
-        graph.nodes.emplace_back(Node{ nodeDeclr.name, {}, false });
+        graph.nodes.emplace_back(Node{ nodeDeclr.name, {}, 0 });
         if (nodeMap.insert({ nodeDeclr.name, &graph.nodes.back() }).first == nodeMap.end()) {
             throw std::runtime_error(std::string("duplicated node (node=") 
                 + nodeDeclr.name + ")");
@@ -56,19 +56,29 @@ void initializeGraph(Graph& graph
     }
 }
 
+struct Visit {
+    Node* node;
+    unsigned int visitor: 2;
+
+};
+
 bool hasRoute(Node& s, Node& e) {
-    std::deque<Node*> bfs;
-    bfs.emplace_back(&s);
-    bfs.emplace_back(&e);
+    std::deque<Visit> bfs;
+    bfs.emplace_back(Visit{ &s, 1 });
+    bfs.emplace_back(Visit{ &e, 2 });
     while (!bfs.empty()) {
-        auto* node = bfs.front();
+        auto visit = bfs.front();
         bfs.pop_front();
-        if (node->visited) {
+        auto* node = visit.node;
+        if ((node->visitors & visit.visitor) != 0) {
+            continue;
+        }
+        node->visitors |= visit.visitor;
+        if (node->visitors == 3) {
             return true;
         }
-        node->visited = true;
         for (auto* adjacency : node->adjacencies) {
-            bfs.emplace_back(adjacency);
+            bfs.emplace_back(Visit{ adjacency, visit.visitor });
         }
     }
     return false;
@@ -152,6 +162,32 @@ int main() {
         },
         "a",
         "z"
+    );
+
+    test(
+        "no path with loop",
+        { 
+            { "a", { "b" } },
+            { "b", { "c" } },
+            { "c", { "a" } },
+            { "d", { } },
+        },
+        "a",
+        "d"
+    );
+
+    test(
+        "path with loop",
+        { 
+            { "a", { "b" } },
+            { "b", { "c" } },
+            { "c", { "a" } },
+            { "d", { "c" } },
+            { "e", { "d" } },
+            { "f", { "e" } },
+        },
+        "a",
+        "f"
     );
 
     return 0;
