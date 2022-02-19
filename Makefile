@@ -14,6 +14,8 @@ palindrome: linked_lists/palindrome.question
 
 intersection: linked_lists/intersection.question
 
+route: graphs/route.question
+
 strings: \
 	integer_string_conversions \
 	string_rotation
@@ -23,6 +25,10 @@ linked_lists: \
 	palindrome \
 	intersection
 
+graphs: \
+	route
+
 all: \
 	strings \
-	linked_lists
+	linked_lists \
+	graphs
