@@ -18,6 +18,8 @@ route: graphs/route.question
 
 minimal_binary_search_tree: graphs/minimal_binary_search_tree.question
 
+build_order: graphs/build_order.question
+
 strings: \
 	integer_string_conversions \
 	string_rotation
@@ -29,7 +31,8 @@ linked_lists: \
 
 graphs: \
 	route \
-	minimal_binary_search_tree
+	minimal_binary_search_tree \
+	build_order
 
 all: \
 	strings \
