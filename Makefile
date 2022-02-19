@@ -16,6 +16,8 @@ intersection: linked_lists/intersection.question
 
 route: graphs/route.question
 
+minimal_binary_search_tree: graphs/minimal_binary_search_tree.question
+
 strings: \
 	integer_string_conversions \
 	string_rotation
@@ -26,7 +28,8 @@ linked_lists: \
 	intersection
 
 graphs: \
-	route
+	route \
+	minimal_binary_search_tree
 
 all: \
 	strings \
