@@ -24,6 +24,8 @@ first_common_ancestor: graphs/first_common_ancestor.question
 
 bst_sequences: graphs/bst_sequences.question
 
+sparse_search: sorting_and_searching/sparse_search.question
+
 strings: \
 	integer_string_conversions \
 	string_rotation
@@ -40,7 +42,12 @@ graphs: \
 	first_common_ancestor \
 	bst_sequences
 
+sorting_and_searching: \
+	sparse_search
+
+
 all: \
 	strings \
 	linked_lists \
-	graphs
+	graphs \
+	sorting_and_searching
