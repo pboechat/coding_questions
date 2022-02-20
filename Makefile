@@ -20,6 +20,8 @@ minimal_binary_search_tree: graphs/minimal_binary_search_tree.question
 
 build_order: graphs/build_order.question
 
+first_common_ancestor: graphs/first_common_ancestor.question
+
 strings: \
 	integer_string_conversions \
 	string_rotation
@@ -32,7 +34,8 @@ linked_lists: \
 graphs: \
 	route \
 	minimal_binary_search_tree \
-	build_order
+	build_order \
+	first_common_ancestor
 
 all: \
 	strings \
