@@ -28,7 +28,9 @@ bst_sequences: graphs/bst_sequences.question
 
 sparse_search: sorting_and_searching/sparse_search.question
 
-triple_step: dynamic_programming/triple_step.question
+triple_step: recursion_and_dynamic_programming/triple_step.question
+
+robot_grid: recursion_and_dynamic_programming/robot_grid.question
 
 strings: \
 	integer_string_conversions \
@@ -50,12 +52,13 @@ graphs: \
 sorting_and_searching: \
 	sparse_search
 
-dynamic_programming: \
-	triple_step
+recursion_and_dynamic_programming: \
+	triple_step \
+	robot_grid
 
 all: \
 	strings \
 	linked_lists \
 	graphs \
 	sorting_and_searching \
-	dynamic_programming
+	recursion_and_dynamic_programming
