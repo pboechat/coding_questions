@@ -1,4 +1,4 @@
-CXXFLAGS := -g -O0 -I. -std=c++14
+CXXFLAGS := -g -O0 -I. -std=c++20
 LDFLAGS := -lstdc++
 
 %.question:
@@ -7,6 +7,8 @@ LDFLAGS := -lstdc++
 integer_string_conversions: strings/integer_string_conversions.question
 
 string_rotation: strings/string_rotation.question
+
+scrambled_input: strings/scrambled_input.question
 
 sum_lists: linked_lists/sum_lists.question
 
@@ -26,9 +28,12 @@ bst_sequences: graphs/bst_sequences.question
 
 sparse_search: sorting_and_searching/sparse_search.question
 
+triple_step: dynamic_programming/triple_step.question
+
 strings: \
 	integer_string_conversions \
-	string_rotation
+	string_rotation \
+	scrambled_input
 
 linked_lists: \
 	sum_lists \
@@ -45,9 +50,12 @@ graphs: \
 sorting_and_searching: \
 	sparse_search
 
+dynamic_programming: \
+	triple_step
 
 all: \
 	strings \
 	linked_lists \
 	graphs \
-	sorting_and_searching
+	sorting_and_searching \
+	dynamic_programming
