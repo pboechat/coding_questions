@@ -1,5 +1,5 @@
 CXXFLAGS := -g -O0 -I. -std=c++20
-LDFLAGS := -lstdc++
+LDFLAGS := -lstdc++ -lm
 
 %.question:
 	$(CC) $(CXXFLAGS) -o ./$* ./$*.cpp $(LDFLAGS)
