@@ -6,26 +6,24 @@ at a time. Implement a method to count how many possible ways the child can run 
 #include <memory>
 #include <deque>
 #include <vector>
+#include <cmath>
 
+template <size_t _C>
 struct Node
 {
+    static const size_t C = _C;
     size_t hops;
-    std::array<std::shared_ptr<Node>, 3> children;
+    std::array<std::shared_ptr<Node>, _C> children;
 
     Node() : hops(0) {}
     Node(size_t hops) : hops(hops) {}
 };
 
-struct Visit
+template <size_t C>
+void makeDecisionTree(std::shared_ptr<Node<C>> &node, size_t hops, size_t missingSteps, std::vector<std::array<std::shared_ptr<Node<C>>, C>> &missingStepsSubtrees)
 {
-    const Node *node;
-    size_t depth;
-};
-
-void makeDecisionTree(std::shared_ptr<Node> &node, size_t hops, size_t missingSteps, std::vector<std::array<std::shared_ptr<Node>, 3>> &missingStepsSubtrees)
-{
-    node = std::make_shared<Node>(hops);
-    for (size_t i = 0; i < std::min(missingSteps, 3ul); ++i)
+    node = std::make_shared<Node<C>>(hops);
+    for (size_t i = 0; i < std::min(missingSteps, C); ++i)
     {
         auto newHops = i + 1;
         auto &child = missingStepsSubtrees[missingSteps][i];
@@ -37,30 +35,83 @@ void makeDecisionTree(std::shared_ptr<Node> &node, size_t hops, size_t missingSt
     }
 }
 
-void makeDecisionTree(std::shared_ptr<Node> &root, size_t step)
+template <size_t C>
+void makeDecisionTree(std::shared_ptr<Node<C>> &root, size_t step)
 {
-    std::vector<std::array<std::shared_ptr<Node>, 3>> missingStepsSubtrees;
+    std::vector<std::array<std::shared_ptr<Node<C>>, C>> missingStepsSubtrees;
     missingStepsSubtrees.resize(step + 1);
     makeDecisionTree(root, 0, step, missingStepsSubtrees);
 }
 
-void printTree(const std::shared_ptr<Node> &root)
+template <size_t C>
+struct Visit
 {
-    std::deque<Visit> bfs;
-    bfs.push_back({root.get(), 1});
-    size_t lastSeenDepth = 0;
+    const Node<C> *node;
+    size_t depth;
+};
+
+template <size_t C, typename Visitor>
+bool inOrderDfs(const std::shared_ptr<Node<C>> &node, Visitor visitor, size_t depth = 0)
+{
+    if (visitor(node, depth))
+    {
+        return true;
+    }
+    for (size_t i = 0; i < C; ++i)
+    {
+        auto &child = node->children[i];
+        if (child != nullptr)
+        {
+            if (inOrderDfs(child, visitor, depth + 1))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+template <size_t C>
+size_t getMaxDepth(const std::shared_ptr<Node<C>> &root)
+{
+    size_t maxDepth = 0;
+    inOrderDfs(root, [&maxDepth](const std::shared_ptr<Node<C>> &child, size_t depth) -> bool {
+        if (depth > maxDepth)
+        {
+            maxDepth = depth;
+        }
+        return false;
+    });
+    return maxDepth;
+}
+
+template <size_t C>
+void printTree(const std::shared_ptr<Node<C>> &root)
+{
+    std::deque<Visit<C>> bfs;
+    bfs.push_back({root.get(), 0});
+    auto maxDepth = getMaxDepth(root);
+    size_t currDepth = 0;
+    size_t prevIndent = 0;
+    std::string spacing = "";
     while (!bfs.empty())
     {
         auto visit = bfs.front();
         bfs.pop_front();
         auto *node = visit.node;
-        std::cout << node->hops;
-        if (visit.depth != lastSeenDepth)
+
+        if (visit.depth > currDepth || currDepth == 0)
         {
             std::cout << std::endl;
-            lastSeenDepth = visit.depth;
+            currDepth = visit.depth;
+            auto currIndent = std::pow(C, maxDepth - currDepth) - 1;
+            std::cout << std::string(currIndent, ' ');
+            if (prevIndent > 0)
+                spacing = std::string(prevIndent - currIndent - 1, ' ');
+            prevIndent = currIndent;
         }
-        for (size_t i = 0; i < 3; ++i)
+        std::cout << node->hops << spacing;
+        for (size_t i = 0; i < C; ++i)
         {
             auto &child = node->children[i];
             if (child != nullptr)
@@ -71,11 +122,13 @@ void printTree(const std::shared_ptr<Node> &root)
     }
 }
 
+using TernaryNode = Node<3>;
+
 void test(size_t steps)
 {
     std::cout << "steps: " << steps << std::endl;
     std::cout << "tree: " << std::endl;
-    std::shared_ptr<Node> root;
+    std::shared_ptr<TernaryNode> root;
     makeDecisionTree(root, steps);
     printTree(root);
     std::cout << std::endl;
