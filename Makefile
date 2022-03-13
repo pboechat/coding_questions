@@ -32,6 +32,8 @@ triple_step: recursion_and_dynamic_programming/triple_step.question
 
 robot_grid: recursion_and_dynamic_programming/robot_grid.question
 
+recursive_multiply: recursion_and_dynamic_programming/recursive_multiply.question
+
 strings: \
 	integer_string_conversions \
 	string_rotation \
@@ -54,7 +56,8 @@ sorting_and_searching: \
 
 recursion_and_dynamic_programming: \
 	triple_step \
-	robot_grid
+	robot_grid \
+	recursive_multiply
 
 all: \
 	strings \
