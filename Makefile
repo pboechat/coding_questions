@@ -16,6 +16,8 @@ palindrome: linked_lists/palindrome.question
 
 intersection: linked_lists/intersection.question
 
+kth_smallest_element: heaps/kth_smallest_element.question
+
 route: graphs/route.question
 
 minimal_binary_search_tree: graphs/minimal_binary_search_tree.question
@@ -44,6 +46,9 @@ linked_lists: \
 	palindrome \
 	intersection
 
+heaps: \
+	kth_smallest_element
+
 graphs: \
 	route \
 	minimal_binary_search_tree \
@@ -62,6 +67,7 @@ recursion_and_dynamic_programming: \
 all: \
 	strings \
 	linked_lists \
+	heaps \
 	graphs \
 	sorting_and_searching \
 	recursion_and_dynamic_programming
