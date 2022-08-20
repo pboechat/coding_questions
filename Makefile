@@ -36,6 +36,8 @@ robot_grid: recursion_and_dynamic_programming/robot_grid.question
 
 recursive_multiply: recursion_and_dynamic_programming/recursive_multiply.question
 
+kadanes_algorithm: recursion_and_dynamic_programming/kadanes_algorithm.question
+
 strings: \
 	integer_string_conversions \
 	string_rotation \
@@ -62,7 +64,8 @@ sorting_and_searching: \
 recursion_and_dynamic_programming: \
 	triple_step \
 	robot_grid \
-	recursive_multiply
+	recursive_multiply \
+	kadanes_algorithm
 
 all: \
 	strings \
