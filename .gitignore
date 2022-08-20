@@ -1,3 +1,8 @@
+# Extension-less files
+*
+!/**/
+!*.*
+
 # Prerequisites
 *.d
 
@@ -30,10 +35,5 @@
 *.exe
 *.out
 *.app
-
-# Extension-less files
-*
-!/**/
-!*.*
 
 .vscode
