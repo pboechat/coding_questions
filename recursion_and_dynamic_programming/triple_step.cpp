@@ -8,10 +8,10 @@ at a time. Implement a method to count how many possible ways the child can run 
 #include <vector>
 #include <cmath>
 
-template <size_t _C>
+template <size_t N>
 struct Node
 {
-    static const size_t C = _C;
+    static const size_t C = N;
     size_t hops;
     std::array<std::shared_ptr<Node>, _C> children;
 
